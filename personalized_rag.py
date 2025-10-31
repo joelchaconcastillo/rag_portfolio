@@ -7,13 +7,14 @@ from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
 class Personalized_RAG:
-    def __init__(self, file_path: str, user_id: str = "terminal_user", persist_dir: str = "./chroma_db"):
+    def __init__(self, file_path: str, user_id: str = "terminal_user", persist_dir: str = "./chroma_db", urls: list = None):
         self.file_path = file_path
+        self.urls = urls
         self.persist_dir = persist_dir
         self.user_id = user_id
         
         # Initialize indexer
-        self.indexer = Indexer(file_path=self.file_path, persist_dir=self.persist_dir)
+        self.indexer = Indexer(file_path=self.file_path, persist_dir=self.persist_dir, urls=urls)
         
         # Check if vectorstore already exists
         if self.is_indexed():

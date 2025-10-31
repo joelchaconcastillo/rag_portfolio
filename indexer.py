@@ -37,6 +37,6 @@ class Indexer:
             documents=docs_splits,
             embedding=HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2"),
             collection_name="my_text_docs",
-            persist_directory=self.persist_dir
+            persist_directory=None, #self.persist_dir
         )
         return self.vectorstore

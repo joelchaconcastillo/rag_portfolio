@@ -1,0 +1,11 @@
+Post 1: Introduction to AI Agents
+    AI agents are programs designed to perform tasks autonomously. They can interact with their environment, make decisions, and learn from feedback.
+
+    Post 2: Prompt Engineering Tips
+    Prompt engineering is crucial for getting accurate responses from language models. Clear instructions and examples improve output quality.
+
+    Post 3: Adversarial Attacks on LLMs
+    Adversarial attacks can trick large language models into producing wrong or harmful outputs. Understanding vulnerabilities helps improve model safety.
+
+    Post 4: Joel Chacon
+    He is a friend of Raul a cat.

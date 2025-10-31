@@ -1,0 +1,16 @@
+# Core LangChain packages
+langchain>=0.1.0
+langchain-google-genai>=0.0.1
+langchain-community>=0.1.0
+langchain_huggingface>=0.0.1
+langchain_chroma>=0.0.1
+langsmith>=0.1.0
+tiktoken
+sentence-transformers
+
+# Vector store / database
+chromadb>=0.3.0
+
+streamlit
+# Optional extras for chromadb support in langchain
+# If using pip, the brackets are used in install but not in requirements.txt

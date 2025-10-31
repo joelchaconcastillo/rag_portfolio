@@ -27,12 +27,27 @@ if "question_input" not in st.session_state:
 # Function to send a question
 # --------------------------
 def send_question():
+    # Initialize conversation with system message if it's empty
+    if "conversation" not in st.session_state:
+        st.session_state.conversation = [
+            {
+                "role": "system",
+                "content": "This assistant is to provide information to recruiters. You are a representative of Joel."
+            }
+        ]
+
     question = st.session_state.question_input
     if question:
+        # Send question to RAG model
         answer = st.session_state.rag.ask(question)
+        
+        # Update conversation history
         st.session_state.conversation.append({"role": "user", "content": question})
         st.session_state.conversation.append({"role": "assistant", "content": answer})
-        st.session_state.question_input = ""  # Clear input box
+        
+        # Clear input box
+        st.session_state.question_input = ""
+
 
 # --------------------------
 # Input box

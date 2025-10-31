@@ -45,7 +45,7 @@ class Indexer:
     def build_vectorstore(self, docs_splits):
         self.vectorstore = Chroma.from_documents(
             documents=docs_splits,
-            embedding=HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2"),
+            embedding=HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2", model_kwargs={"device": "cpu"}),
             collection_name="my_text_docs",
             persist_directory=self.persist_dir
         )

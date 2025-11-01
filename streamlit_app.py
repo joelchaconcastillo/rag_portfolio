@@ -2,6 +2,9 @@ import streamlit as st
 import uuid
 from personalized_rag import Personalized_RAG
 
+# --------------------------
+# Page Config
+# --------------------------
 st.set_page_config(page_title="Joel's Assistant", layout="wide")
 st.title("Joel's Assistant (Direct Agent)")
 
@@ -29,13 +32,11 @@ if "question_input" not in st.session_state:
 # --------------------------
 def send_question():
     # Initialize conversation with system message if it's empty
-    if "conversation" not in st.session_state:
-        st.session_state.conversation = [
-            {
-                "role": "system",
-                "content": "This assistant is to provide information to recruiters. You are a representative of Joel."
-            }
-        ]
+    if not st.session_state.conversation:
+        st.session_state.conversation.append({
+            "role": "system",
+            "content": "This assistant is to provide information to recruiters."
+        })
 
     question = st.session_state.question_input
     if question:
@@ -49,14 +50,13 @@ def send_question():
         # Clear input box
         st.session_state.question_input = ""
 
-
 # --------------------------
 # Input box
 # --------------------------
 st.text_input("Ask me anything:", key="question_input", on_change=send_question)
 
 # --------------------------
-# Chat bubbles CSS (wrapped long text + max-width + dark mode)
+# Chat bubbles CSS (dark mode, wrapped text)
 # --------------------------
 st.markdown("""
 <style>
@@ -67,7 +67,7 @@ st.markdown("""
     max-height: 400px;
     overflow-y: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;  /* normal column, we'll reverse in Python */
 }
 
 .user-msg {
@@ -77,11 +77,11 @@ st.markdown("""
     border-radius: 10px;
     margin: 5px;
     text-align: left;
-    max-width: 40%;             /* limit width for long messages */
+    max-width: 40%;             
     font-size: 14px;
-    word-wrap: break-word;      /* wrap long words */
+    word-wrap: break-word;      
     overflow-wrap: break-word;
-    white-space: pre-wrap;      /* preserve line breaks */
+    white-space: pre-wrap;      
     align-self: flex-end;
 }
 
@@ -92,7 +92,7 @@ st.markdown("""
     border-radius: 10px;
     margin: 5px;
     text-align: left;
-    max-width: 50%;             /* limit width for long messages */
+    max-width: 50%;             
     font-size: 14px;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -108,27 +108,30 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --------------------------
-# Display conversation inside scrollable container with auto-scroll
+# Display conversation (newest messages on top)
 # --------------------------
-chat_placeholder = st.empty()  # placeholder for chat area
+chat_placeholder = st.empty()
 
 with chat_placeholder.container():
     st.markdown('<div class="chat-area" id="chat-area">', unsafe_allow_html=True)
-    for msg in st.session_state.conversation:
+
+    # Reverse messages in Python to show newest first
+    for msg in reversed(st.session_state.conversation):
         if msg["role"] == "user":
             st.markdown(f'<div class="chat-container"><div class="user-msg">{msg["content"]}</div></div>', unsafe_allow_html=True)
         else:
             st.markdown(f'<div class="chat-container"><div class="assistant-msg">{msg["content"]}</div></div>', unsafe_allow_html=True)
+
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Auto-scroll to bottom
+    # Auto-scroll to top (newest message visible)
     st.markdown("""
-        <script>
-        var chatArea = document.getElementById('chat-area');
-        if (chatArea) {
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
-        </script>
+    <script>
+    var chatArea = document.getElementById('chat-area');
+    if (chatArea) {
+        chatArea.scrollTop = 0;
+    }
+    </script>
     """, unsafe_allow_html=True)
 
 # --------------------------

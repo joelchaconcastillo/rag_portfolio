@@ -13,6 +13,16 @@ lxml
 # Vector store / database
 chromadb>=0.3.0
 
+# Front-end app (Streamlit)
 streamlit
-# Optional extras for chromadb support in langchain
-# If using pip, the brackets are used in install but not in requirements.txt
+
+# -----------------------------
+# Backend API (FastAPI + Uvicorn)
+# -----------------------------
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.6
+
+# Optional extras for Chroma / HuggingFace
+requests
+pydantic>=2.0

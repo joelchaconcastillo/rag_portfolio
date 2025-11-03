@@ -1,7 +1,7 @@
 services:
   # A Docker web service
   - type: web
-    name: fastapi-example
+    name: rag_portfolio
     runtime: python
     plan: free
     autoDeploy: false

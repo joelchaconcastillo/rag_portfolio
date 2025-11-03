@@ -1,6 +1,6 @@
 import streamlit as st
 import uuid
-from personalized_rag import Personalized_RAG
+from app.core.personalized_rag import Personalized_RAG
 
 # --------------------------
 # Page Config

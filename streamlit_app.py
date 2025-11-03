@@ -19,7 +19,7 @@ if "conversation" not in st.session_state:
 
 if "rag" not in st.session_state:
     st.session_state.rag = Personalized_RAG(
-        file_path="user_information",
+        file_path="data/user_information",
         user_id=st.session_state.user_id,
         urls=["https://www.linkedin.com/in/joel-chacon-castillo-351bb4194/"]
     )

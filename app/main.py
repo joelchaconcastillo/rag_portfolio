@@ -4,8 +4,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 from uuid import uuid4
 
-from personalized_rag import Personalized_RAG
-
+from app.core.personalized_rag import Personalized_RAG
 
 app = FastAPI(title="Joel's Assistant API", version="1.0")
 
@@ -28,7 +27,7 @@ class AskResponse(BaseModel):
 
 
 rag = Personalized_RAG(
-    file_path="user_information/",
+    file_path="data/user_information/",
     user_id="default_user",
     persist_dir="./chroma_db",
 )

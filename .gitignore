@@ -66,7 +66,7 @@ venv.bak/
 *.DS_Store
 
 # Database / local files
-chroma_db/
+#chroma_db/
 
 # Shell scripts (optional, if you don't want to track)
 set_variables.sh

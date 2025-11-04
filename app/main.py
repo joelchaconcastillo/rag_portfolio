@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-#from fastapi.middleware.cors import CORSMiddleware
+# from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from uuid import uuid4
@@ -11,13 +11,13 @@ from app.core.personalized_rag import Personalized_RAG
 # ----------------------------------------------------
 app = FastAPI(title="Joel's Assistant API", version="1.1")
 
-#app.add_middleware(
-#    CORSMiddleware,
-#    allow_origins=["*"],         
-#    allow_credentials=True,
-#    allow_methods=["*"],
-#    allow_headers=["*"],
-#)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],         
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 # ----------------------------------------------------
 # Request & Response Schemas
@@ -45,6 +45,19 @@ rag = Personalized_RAG(
 @app.get("/")
 async def root():
     return {"message": "Welcome to Joel's Personalized RAG API 🚀"}
+
+@app.get("/health")
+async def healthcheck():
+    """
+    Lightweight health check endpoint.
+    Used by uptime monitors to keep the app alive and verify basic functionality.
+    """
+    try:
+        # Optional: you can check if indexer is accessible
+        _ = rag.user_id  # touch a simple property to ensure rag is initialized
+        return {"status": "ok", "service": "joel-assistant", "version": "1.1"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Healthcheck failed: {e}")
 
 @app.get("/status")
 async def status():
@@ -94,8 +107,3 @@ def reindex_data():
         return {"status": "success", "message": "Reindexing completed successfully."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error during reindexing: {e}")
-
-#@app.options("/ask")
-#def options_ask():
-#    """Handle preflight OPTIONS requests (for CORS)."""
-#    return {"status": "ok"}

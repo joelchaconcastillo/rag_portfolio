@@ -6,7 +6,7 @@ langchain_huggingface>=0.0.1
 langchain_chroma>=0.0.1
 langsmith>=0.1.0
 tiktoken
-sentence-transformers
+#sentence-transformers
 beautifulsoup4 
 lxml
 
@@ -19,7 +19,8 @@ streamlit
 # -----------------------------
 # Backend API (FastAPI + Uvicorn)
 # -----------------------------
-fastapi[all]
+fastapi #[all]
+uvicorn
 #fastapi>=0.115.0
 #uvicorn[standard]>=0.30.0
 #python-multipart>=0.0.6

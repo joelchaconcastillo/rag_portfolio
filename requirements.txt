@@ -6,7 +6,7 @@ langchain_huggingface>=0.0.1
 langchain_chroma>=0.0.1
 langsmith>=0.1.0
 tiktoken
-sentence-transformers
+#sentence-transformers
 beautifulsoup4 
 lxml
 
